@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour {
 			other.gameObject.SetActive (false);
 			count += 1;
 			SetCountText ();
+		} else if (other.gameObject.tag == "Bumper") {
+			BumperCollide(other);
 		} else if (other.gameObject.tag == "Death Zone") {
 			EndGame();
 		}
@@ -38,6 +40,10 @@ public class PlayerController : MonoBehaviour {
 		if (count >= 12) {
 			winText.text = "YOU WIN!";
 		}
+	}
+
+	void BumperCollide(Collider other) {
+		//make the player rebound off the bumper
 	}
 
 	void EndGame() {
