@@ -24,11 +24,12 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other){
-		if (other.gameObject.tag == "PickUp")
-		{
-			other.gameObject.SetActive(false);
+		if (other.gameObject.tag == "PickUp") {
+			other.gameObject.SetActive (false);
 			count += 1;
-			SetCountText();
+			SetCountText ();
+		} else if (other.gameObject.tag == "Death Zone") {
+			EndGame();
 		}
 	}
 
@@ -37,5 +38,17 @@ public class PlayerController : MonoBehaviour {
 		if (count >= 12) {
 			winText.text = "YOU WIN!";
 		}
+	}
+
+	void EndGame() {
+		winText.text = "YOU LOST!";
+		StartCoroutine (PauseWaitResume (3f));
+		Application.LoadLevel (Application.loadedLevel);
+	}
+
+	IEnumerator PauseWaitResume (float pauseDelay) {
+		Time.timeScale = .0000001f;
+		yield return new WaitForSeconds(pauseDelay * Time.timeScale);
+		Time.timeScale = 1.0f;
 	}
 }
