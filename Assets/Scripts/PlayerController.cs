@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour {
 	public GUIText countText;
 	public GUIText winText;
 	private int count;
+	private int bumperMultiplicator = 2;
 
 	void Start() {
 		count = 0;
@@ -43,7 +44,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void BumperCollide(Collider other) {
-		//make the player rebound off the bumper
+		rigidbody.velocity = bumperMultiplicator * -rigidbody.velocity;
 	}
 
 	void EndGame() {
