@@ -42,13 +42,18 @@ public class PlayerController : MonoBehaviour {
 
 	void EndGame() {
 		winText.text = "YOU LOST!";
-		StartCoroutine (PauseWaitResume (3f));
-		Application.LoadLevel (Application.loadedLevel);
+		StartCoroutine (Pause (3));
 	}
 
-	IEnumerator PauseWaitResume (float pauseDelay) {
-		Time.timeScale = .0000001f;
-		yield return new WaitForSeconds(pauseDelay * Time.timeScale);
-		Time.timeScale = 1.0f;
+	private IEnumerator Pause(int p)
+	{
+		Time.timeScale = 0.0001f;
+		float pauseEndTime = Time.realtimeSinceStartup + 1;
+		while (Time.realtimeSinceStartup < pauseEndTime)
+		{
+			yield return 0;
+		}
+		Time.timeScale = 1;
+		Application.LoadLevel (Application.loadedLevel);
 	}
 }
